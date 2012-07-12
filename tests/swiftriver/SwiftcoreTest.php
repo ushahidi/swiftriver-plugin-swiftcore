@@ -19,11 +19,12 @@ class Swiftriver_Swiftcore_Test extends Unittest_TestCase {
 		$this->droplet = Swiftriver_Dropletqueue::get_droplet_template();
 		
 		// Add the tags and places properties
+		$this->droplet['id'] = 201212071432;
 		$this->droplet['tags'] = array();
 		$this->droplet['places'] =  array();
 		
 		// Add some test content for extraction via the API
-		$this->droplet['droplet_content'] = "The other day, presidential aspirant Raphael Tuju found it "
+		$this->droplet['droplet_raw'] = "The other day, presidential aspirant Raphael Tuju found it "
 			. "necessary to invoke 'labelling' as an assault weapon against perceived sponsors of attacks on "
 			. "him in Kisumu. He called them 'communists' and 'fascists.' Labelling is not new in history and "
 			. "is not without purpose. Ask Moi what he thought reformers were and the answer will be similar.";
@@ -39,9 +40,6 @@ class Swiftriver_Swiftcore_Test extends Unittest_TestCase {
 	public function test_extract_entites()
 	{
 		$this->assertTrue(Swiftriver_Event::has_run('swiftriver.droplet.extract_metadata'), 'Event has not run');
-		
-		// Get the droplet
-		$this->dropplet = Swiftriver_Event::$data;
 		
 		// Check that tags have been set
 		$this->assertGreaterThan(0, count($this->droplet['tags']), "Entity extraction failed");
